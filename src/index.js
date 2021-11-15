@@ -20,19 +20,23 @@ function onFormInput(event) {
     return;
   }
 
-  fetchCountries(input).then(data => {
-    if (data.length > 10) {
-      clear();
-      Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-    } else if (data.length <= 10 && data.length >= 2) {
-      clear();
-      renderCountries(data);
-    } else if (data.length === 1) {
-      clear();
-      renderCountry(data);
-    }
-    console.log(data);
-  });
+  fetchCountries(input)
+    .then(data => {
+      if (data.length > 10) {
+        clear();
+        Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+      } else if (data.length <= 10 && data.length >= 2) {
+        clear();
+        renderCountries(data);
+      } else if (data.length === 1) {
+        clear();
+        renderCountry(data);
+      }
+      console.log(data);
+    })
+    .catch(error => {
+      Notiflix.Notify.failure('Oops, there is no country with that name');
+    });
 }
 
 function renderCountries(data) {
